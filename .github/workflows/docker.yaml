@@ -7,14 +7,10 @@ on:
 
 
 env:
-#  ALIYUN_REGISTRY: "${{ secrets.ALIYUN_REGISTRY }}"
-#  ALIYUN_NAME_SPACE: "${{ secrets.ALIYUN_NAME_SPACE }}"
-#  ALIYUN_REGISTRY_USER: "${{ secrets.ALIYUN_REGISTRY_USER }}"
-#  ALIYUN_REGISTRY_PASSWORD: "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}"
-  ALIYUN_REGISTRY: "registry.cn-hangzhou.aliyuncs.com"
-  ALIYUN_NAME_SPACE: "xtit_liyu"
-  ALIYUN_REGISTRY_USER: "xtit_liyu"
-  ALIYUN_REGISTRY_PASSWORD: "R0cky3906@ly"
+  ALIYUN_REGISTRY: "${{ secrets.ALIYUN_REGISTRY }}"
+  ALIYUN_NAME_SPACE: "${{ secrets.ALIYUN_NAME_SPACE }}"
+  ALIYUN_REGISTRY_USER: "${{ secrets.ALIYUN_REGISTRY_USER }}"
+  ALIYUN_REGISTRY_PASSWORD: "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}"
 
 jobs:
 
@@ -28,6 +24,7 @@ jobs:
         echo "=============================================================================="
         df -hT
         echo "=============================================================================="
+
     # 增加可用磁盘空间
     - name: Maximize build space
       uses: easimon/maximize-build-space@master
@@ -51,6 +48,7 @@ jobs:
         echo "=============================================================================="
         df -hT
         echo "=============================================================================="
+
     - name: Checkout Code
       uses: actions/checkout@v4
 
@@ -121,6 +119,7 @@ jobs:
             echo "platform_prefix is $platform_prefix"
             # 获取镜像的完整名称，例如kasmweb/nginx:1.25.3（命名空间/镜像名:版本号）
             image=$(echo "$line" | awk '{print $NF}')
+
             # 获取 镜像名:版本号  例如nginx:1.25.3
             image_name_tag=$(echo "$image" | awk -F'/' '{print $NF}')
             # 获取命名空间 例如kasmweb  这里有种特殊情况 docker.io/nginx，把docker.io当成命名空间，也OK
@@ -156,4 +155,3 @@ jobs:
             echo "=============================================================================="     
             
         done < images.txt
-Update images.txt · LightZhouZai/docker_image_pusher@2ac4aba 
